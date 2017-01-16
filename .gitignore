@@ -1,0 +1,11 @@
+.idea
+*.iml
+out
+gen
+node_modules
+npm-debug.log
+img
+doc
+bower_components
+back/access.log
+back/config/config.json

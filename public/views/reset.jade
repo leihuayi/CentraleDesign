@@ -1,0 +1,21 @@
+extends layout
+block content
+   .white-box
+      .general_wrapper.clearfix
+         .col-lg-12.col-md-12.col-sm-12
+            .row
+               h3 #{lang.__('reset')}#{lang.__('password')}
+            form(method='POST')
+               .form-group
+                  label(for='password') #{lang.__('new')}#{lang.__('password')}
+                  input.form-control(type='password', name='password', value='', placeholder="#{lang.__('new')}#{lang.__('password')}", autofocus=true)
+               .form-group
+                  label(for='confirm') #{lang.__('confirm')} #{lang.__('password')}
+                  input.form-control(type='password', name='confirm', value='', placeholder="#{lang.__('confirm')} #{lang.__('password')}")
+               .form-group
+                  button.btn.btn-primary(type='submit') #{lang.__('update')}#{lang.__('password')}
+               if message
+                  .from-group
+                     .error-message
+                        span=message
+

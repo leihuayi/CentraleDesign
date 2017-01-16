@@ -1,0 +1,16 @@
+extends layout
+block content
+    .white-box
+        .general_wrapper.clearfix
+            .col-lg-12.col-md-12.col-sm-12
+                .row
+                    h3 #{lang.__('forget')} #{lang.__('password')}
+                form(action="/forget",method="post")
+                    .form-group
+                        label(for='email') Email
+                        input.form-control(type='text', name='email', autofocus)
+                    button.btn.btn-primary(type='submit') #{lang.__('reset')} #{lang.__('password')}
+                    if message
+                        .from-group
+                            .error-message
+                                span=message

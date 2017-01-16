@@ -1,0 +1,17 @@
+doctype html
+html(lang='en')
+    head
+        title Mewme VR
+        meta(charset='utf-8')
+        meta(name="viewport" content="width=device-width, initial-scale=1")
+        link(rel="stylesheet" href="/styles/style.css")
+        block scripts
+            script(src="/js/ui/translation.js")
+            script(src="/js/ui/requests.js")
+            script(src="/js/ui/index.js")
+    body
+        .navbar
+        .page
+            .container
+                block content
+            .footer

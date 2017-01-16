@@ -1,0 +1,26 @@
+extends layout
+block content
+    .white-box
+        .general_wrapper.clearfix
+            .col-lg-12.col-md-12.col-sm-12
+                .row
+                    h3 #{lang.__('login')}
+                form.welcom-form(action="/login",method="post")
+                    .form-group
+                        .input-group
+                            span.input-group-addon
+                                i.fa.fa-user
+                            input(type="text",name="email",placeholder="#{lang.__('email')}").form-control
+                    .form-group
+                        .input-group
+                            span.input-group-addon
+                                i.fa.fa-lock
+                            input(type="password",name="password",placeholder="#{lang.__('password')}").form-control
+                    .from-group
+                        input(type="submit",value="#{lang.__('login')}" onlick="checkRegister()").btn.btn-primary.btn-block
+                    .from-group.top-30
+                        a(href="/forget") #{lang.__('forget')}#{lang.__('password')} ?
+                    if message
+                        .from-group
+                                .error-message
+                                    span=message

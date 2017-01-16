@@ -1,0 +1,46 @@
+{
+  "name": "csdesign",
+  "version": "1.0.0",
+  "description": "Website for CentraleSupélec Design association",
+  "main": "/back/index.js",
+  "dependencies": {
+    "async" : "latest",
+    "bcrypt-nodejs" : "latest",
+    "body-parser": "^1.15.2",
+    "bower": "^1.7.9",
+    "connect-flash" : "~0.1.1",
+    "cookie-parser": "~1.0.0",
+    "express": "^4.14.0",
+    "express-session": "~1.0.0",
+    "i18n": "^0.5.0",
+    "fs": "0.0.2",
+    "http": "0.0.0",
+    "jade": "^1.11.0",
+    "multer": "^1.2.0",
+    "node": "^0.0.0",
+    "nodemailer": "0.7.1",
+    "passport" : "~0.1.17",
+    "passport-local" : "~0.1.6",
+    "request-promise": "^4.1.1",
+    "sequelize": "^3.23.6",
+    "socket.io": "1.4.6",
+    "sharp": "^0.15.1"
+  },
+  "devDependencies": {
+    "apidoc": "^0.16.1",
+    "express": "^4.14.0",
+    "morgan": "^1.7.0",
+    "mysql": "^2.11.1",
+    "node": "0.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "chmod +x ./start.sh && ./start.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "Sarah Gross",
+  "license": "ISC"
+}
