@@ -11,7 +11,7 @@ var connection = mysql.createConnection({
     'password': dbconfig.database.password
 });
 
-connection.query('USE ' + dbconfig.database.vrDbName);
+connection.query('USE ' + dbconfig.database.dbName);
 // expose this function to our app using module.exports
 module.exports = function(passport) {
 

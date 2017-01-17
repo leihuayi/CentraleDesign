@@ -6,8 +6,6 @@ var url = require('url');
 var config = require('./config/config');
 var fs = require('fs');
 
-var subscribers = [];
-
 module.exports = function(app,passport) {
     // HTTP Request settings
     app.use(bodyParser.json());
@@ -18,10 +16,7 @@ module.exports = function(app,passport) {
     app.set('views', './public/views');
 
     // Static routes (__dirname is the 'project_path/back/' path)
-    app.use('/img/property', express.static(__dirname + '/../' + config.multimedia.dest + '/property'));
-    app.use('/img/user', express.static(__dirname + '/../' + config.multimedia.dest + '/user'));
-    app.use('/assets', express.static(__dirname + '/../bower_components'));
-    app.use('/api/docs', express.static(__dirname + '/../doc'));
+    //app.use('/assets', express.static(__dirname + '/../bower_components'));
     app.use('/styles', express.static(__dirname + '/../public/styles'));
     app.use('/js', express.static(__dirname + '/../public/js'));
 
@@ -42,19 +37,15 @@ module.exports = function(app,passport) {
             failureFlash : true // allow flash messages
         }),
         function(req, res) {
-            subscriptionController.subscribersList(req.user.id)
-                .then(function(sublist){
-                    subscribers = sublist;
-                    if (req.body.remember) {
-                        req.session.cookie.maxAge = 1000 * 60 * 3;
-                    } else {
-                        req.session.cookie.expires = false;
-                    }
-                    var redirectTo = req.session.redirectTo ? req.session.redirectTo : '/';
-                    delete req.session.redirectTo;
-                    // is authenticated ?
-                    res.redirect(redirectTo);
-                });
+            if (req.body.remember) {
+                req.session.cookie.maxAge = 1000 * 60 * 3;
+            } else {
+                req.session.cookie.expires = false;
+            }
+            var redirectTo = req.session.redirectTo ? req.session.redirectTo : '/';
+            delete req.session.redirectTo;
+            // is authenticated ?
+            res.redirect(redirectTo);
         });
 
     // SIGNUP ==============================
@@ -97,70 +88,16 @@ module.exports = function(app,passport) {
 
     // HOME PAGE (with login links) ========
     app.get('/', function(req, res) {
-        req.query.page = 1;
-        req.query.order = 'createdAt';
-        propertyController
-            .all(req, res)
-            .then(function (propertiesAll) {
-                req.query.order = 'numClick';
-                propertyController
-                    .all(req, res)
-                    .then(function (propertiesPopular){
-                        if(req.user){
-                            propertyController
-                                .history(req, res)
-                                .then(function (propertiesHistory){
-                                    res.render('index.jade', {
-                                        propertiesAll: propertiesAll.propertiesVR,
-                                        propertiesPopular: propertiesPopular.propertiesVR,
-                                        propertiesHistory: propertiesHistory.propertiesVR,
-                                        user : req.user,
-                                        subscribers : subscribers,
-                                        lang: res
-                                    });
-                                });
-                        }
-
-                        else{
-                            res.render('index.jade', {
-                                propertiesAll: propertiesAll.propertiesVR,
-                                propertiesPopular: propertiesPopular.propertiesVR,
-                                user : req.user,
-                                subscribers : subscribers,
-                                lang: res
-                            });
-                        }
-
-                    })
-            });
+        res.render('index.jade', {
+            user : req.user,
+            lang: res
+        });
     });
 
 
     // MY PROPERTIES PAGE   ===============
     app.get('/order', isLoggedIn, function(req, res) {
-        req.query.page = req.query.page > 1 ? req.query.page : 1;
-        propertyController
-            .userProperties(req,res,0)
-            .then(function (properties) {
-                //If we are asking for a page bigger than the last page
-                if(properties.total>propertyController.maxOnPage && req.query.page > Math.ceil(properties.total/ propertyController.maxOnPage)) {
-                    res.redirect("/my?page="+Math.ceil(properties.total/ propertyController.maxOnPage));
-                }
 
-                subscriptionController.subscriptions(req,res)
-                    .then(function(subscriptions){
-                        console.log(subscriptions);
-                        res.render('profile.jade', {
-                            properties: properties.propertiesVR,
-                            profile_user : req.user,
-                            subscriptions: subscriptions,
-                            user : req.user,
-                            pagination: {total: properties.total, maxOnPage: propertyController.maxOnPage, currentPage: parseInt(req.query.page)},
-                            subscribers : subscribers,
-                            lang: res
-                        });
-                    })
-            });
     });
 
     //Render jade page

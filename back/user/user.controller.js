@@ -5,7 +5,6 @@ var async = require('async');
 var bcrypt = require('bcrypt-nodejs');
 var crypto = require('crypto');
 var nodemailer = require('nodemailer');
-var propertyCtrl = require('../property/property.controller');
 var config = require('./../config/config');
 var fs = require('fs');
 var sharp = require('sharp');

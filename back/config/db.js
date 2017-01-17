@@ -55,7 +55,7 @@ var Order = database.define('order', {
         type: Sequelize.STRING
     },
     resolution: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
     },
     output: {
         type: Sequelize.STRING
@@ -70,16 +70,16 @@ var Order = database.define('order', {
     freezeTableName: true
 });
 
-var DesignerOrder = database.define('designer_order', {
+var Designer_order = database.define('designer_order', {
     id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
-    designerId: {
+    designer_id: {
         type: Sequelize.INTEGER
     },
-    orderId: {
+    order_id: {
         type: Sequelize.INTEGER
     }
 }, {
@@ -89,9 +89,9 @@ var DesignerOrder = database.define('designer_order', {
 // Don't be attracted by the dark side of the force. The force needs to stay falsy here.
 User.sync();
 Order.sync();
-DesignerOrder.sync();
+Designer_order.sync();
 
 module.exports.Order = Order;
 module.exports.User = User;
-module.exports.DesignerOrder = DesignerOrder;
+module.exports.DesignerOrder = Designer_order;
 module.exports.database = database;
