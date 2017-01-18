@@ -5,7 +5,7 @@ function apiRequests() {
         createOrder: createOrder,
         updateOrder: updateOrder,
         deleteOrder: deleteOrder,
-        searchorders: searchorders,
+        searchOrders: searchOrders,
         updateUser: updateUser,
         deleteUser: deleteUser,
         getLayout : getLayout

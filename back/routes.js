@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 var url = require('url');
 var config = require('./config/config');
 var fs = require('fs');
+var userController = require('./user/user.controller');
 
 module.exports = function(app,passport) {
     // HTTP Request settings
@@ -17,9 +18,7 @@ module.exports = function(app,passport) {
 
     // Static routes (__dirname is the 'project_path/back/' path)
     //app.use('/assets', express.static(__dirname + '/../bower_components'));
-    app.use('/styles', express.static(__dirname + '/../public/styles'));
-    app.use('/js', express.static(__dirname + '/../public/js'));
-
+    app.use('/public', express.static(__dirname + '/../public/'));
 
     // LOGIN ===============================
     // show the login form
@@ -112,7 +111,7 @@ module.exports = function(app,passport) {
 
     // ERROR ==============================
     app.get('/error', function(req, res) {
-        res.render('error.jade', {user : req.user, subscribers : subscribers, lang:res});
+        res.render('error.jade', {user : req.user, lang:res});
     });
 
 

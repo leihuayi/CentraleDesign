@@ -1,10 +1,9 @@
 extends layout
 block content
-   .white-box
-      .general_wrapper.clearfix
-         .col-lg-12.col-md-12.col-sm-12
-            .row
-               h1 #{lang.__('error')}
-            hr
-            img.center-block(src="/styles/images/mewmelogo.png" style="opacity:0.3")
-            h3(style="text-align:center") #{lang.__('error_404')}
+
+   .row
+      h3 #{lang.__('error')}
+   .row
+      .col.s12.l12
+         .card-panel
+            h4.center-align #{lang.__('error_404')}

@@ -11,7 +11,7 @@ Build:
 1. (sudo) npm install
 2. ./node_modules/bower/bin/bower install
 Start the web server:
-3. (Local) To change the environment variables move config.json.dist to config.json and update the variables if needed. Default: 
+3. (Local) To change the environment variables create a config.json file and update the variables if needed. Default: 
   * Server: localhost:8888
   * Database: localhost:3306
 4. (sudo) npm start

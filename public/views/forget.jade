@@ -1,16 +1,20 @@
 extends layout
 block content
-    .white-box
-        .general_wrapper.clearfix
-            .col-lg-12.col-md-12.col-sm-12
-                .row
-                    h3 #{lang.__('forget')} #{lang.__('password')}
-                form(action="/forget",method="post")
-                    .form-group
-                        label(for='email') Email
-                        input.form-control(type='text', name='email', autofocus)
-                    button.btn.btn-primary(type='submit') #{lang.__('reset')} #{lang.__('password')}
+
+    .row
+        h3 #{lang.__('forgot_password')}
+    .row
+        .col.s12.l12
+            .card-panel
+                form.container(action="/forget",method="POST")
+                    .row
+                        .input-field.col.s12
+                            input(type="email",name="email").form-control
+                            label #{lang.__('email')}
+
+                    .row.center-align
+                        input(type="submit",value="#{lang.__('reset')}" onlick="").btn.btn-lg
                     if message
-                        .from-group
-                            .error-message
+                        .row
+                            .invalid
                                 span=message

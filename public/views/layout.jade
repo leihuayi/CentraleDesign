@@ -1,17 +1,70 @@
 doctype html
 html(lang='en')
     head
-        title Mewme VR
+        title CSDesign
         meta(charset='utf-8')
         meta(name="viewport" content="width=device-width, initial-scale=1")
-        link(rel="stylesheet" href="/styles/style.css")
-        block scripts
-            script(src="/js/ui/translation.js")
-            script(src="/js/ui/requests.js")
-            script(src="/js/ui/index.js")
+        link(rel="stylesheet" href="/public/css/libs/bootstrap.min.css")
+        link(rel="stylesheet" href="/public/css/libs/bootstrap-theme.min.css")
+        link(rel="stylesheet" href="/public/css/libs/materialize.css")
+        link(rel="stylesheet" href="/public/css/style.css")
+        link(rel="stylesheet" href="/public/fonts/font-awesome/css/font-awesome.min.css")
     body
-        .navbar
-        .page
+        nav
+            .nav-wrapper
+                a.brand-logo.text-secondary(href="/") #{lang.__('asso_name')}
+                a.button-collapse.text-secondary(href="#" data-activates="mobile-demo")
+                    i.fa.fa-bars
+                ul.right.hide-on-med-and-down
+                    li
+                        a(href="/") #{lang.__('gallery')}
+                    li
+                        a(href="/") #{lang.__('order')}
+                    li
+                        a(href="/") FAQ
+                    li
+                        a(href="/") #{lang.__('about')}
+                    if(typeof(user) == "undefined")
+                        li
+                            a.waves-effect.waves-light.btn(href="/login") #{lang.__('login')}
+                    else
+                        li
+                            a.waves-effect.waves-light.btn(href="/login") #{lang.__('logout')}
+
+                ul.side-nav#mobile-demo
+                    li
+                        a(href="/") #{lang.__('gallery')}
+                    li
+                        a(href="/") #{lang.__('order')}
+                    li
+                        a(href="/") FAQ
+                    li
+                        a(href="/") #{lang.__('about')}
+                    if(typeof(user) == "undefined")
+                        li
+                            a.waves-effect.waves-light.btn.btn-sm(href="/login") #{lang.__('login')}
+                    else
+                        li
+                            a.waves-effect.waves-light.btn.btn-sm(href="/login") #{lang.__('logout')}
+
+        main
             .container
                 block content
-            .footer
+
+        footer.page-footer
+            .container
+                .row
+                    p blabla
+            .footer-copyright
+                .container
+                    p © 2017 CentraleSupélec Design
+                    a.grey-text.text-lighten-4.right(href="#") More Links
+
+
+        block scripts
+            script(type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js")
+            script(type="text/javascript" src="/public/js/libs/bootstrap.min.js")
+            script(type="text/javascript" src="/public/js/libs/materialize.min.js")
+            script(type="text/javascript" src="/public/js/ui/translation.js")
+            script(type="text/javascript" src="/public/js/ui/requests.js")
+            script(type="text/javascript" src="/public/js/ui/index.js")

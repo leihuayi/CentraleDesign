@@ -89,7 +89,6 @@ module.exports.createResetToken = function(req,res,next) {
 
                     user.save()
                     .then(function() {
-                            console.log('saved!');
                             var mailOptions = {
                                 to: user.email,
                                 from: 'vr@mewme.com',

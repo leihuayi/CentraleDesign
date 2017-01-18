@@ -47,7 +47,7 @@ module.exports = function(passport) {
                 passReqToCallback : true // allows us to pass back the entire request to the callback
             },
             function(req, email, password, done) {
-                console.log(req.body);
+
                 if(req.body.username == "" || req.body.confirm == ""){
                     return done(null, false, req.flash('signupMessage', req.__("error_fields_empty")));
                 }

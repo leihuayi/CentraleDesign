@@ -1,3 +1,7 @@
 extends layout
 block content
+    br
+    br
     div Index page
+    if(typeof(user) != "undefined")
+        h1 Hello #{user.username} !!
