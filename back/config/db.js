@@ -39,13 +39,16 @@ var Order = database.define('order', {
         primaryKey: true,
         autoIncrement: true
     },
-    userId: {
+    user_id: {
         type: Sequelize.INTEGER
+    },
+    deadline: {
+        type: Sequelize.DATE
     },
     type: {
         type: Sequelize.STRING
     },
-    size_length: {
+    size_width: {
         type: Sequelize.INTEGER
     },
     size_height: {
@@ -65,6 +68,9 @@ var Order = database.define('order', {
     },
     comment: {
         type: Sequelize.TEXT
+    },
+    images: {
+        type: Sequelize.JSON
     }
 }, {
     freezeTableName: true

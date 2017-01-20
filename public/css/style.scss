@@ -1,7 +1,6 @@
 body{
   width:100%;
   padding:0;
-  overflow:hidden;
   display: flex;
   min-height: 100vh;
   flex-direction: column;
@@ -13,5 +12,26 @@ main {
 
 .nav-wrapper {
   padding: 0 15px;
+}
+
+.modal-content{
+  background-color: #fafafa;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  border: none;
+}
+
+#my_orders .collection-item.avatar{
+  &:hover{
+    cursor: pointer;
+    background-color: #efefef;
+  }
+
+  p{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
 }
 

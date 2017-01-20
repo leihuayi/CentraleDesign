@@ -1,0 +1,66 @@
+form#form_order.container(enctype="multipart/form-data")
+   h5 #{lang.__('order_form_title_1')}
+   br
+   .row
+      .input-field.col.s12(data-name="type" required)
+         select.icons
+            option(value="" disabled selected)
+            option.circle(value="poster" data-icon="/public/images/poster.png") #{lang.__('poster')}
+            option.circle(value="logo" data-icon="/public/images/logo.png") #{lang.__('logo')}
+            option.circle(value="web" data-icon="/public/images/web.png") #{lang.__('web_design')}
+            option.circle(value="app" data-icon="/public/images/app.png") #{lang.__('app_design')}
+            option.circle(value="video" data-icon="/public/images/video.png") #{lang.__('video')}
+            option.circle(value="other" data-icon="/public/images/other.png") #{lang.__('other')}
+         label Choose order type *
+   .row
+      .input-field.col.s12.m8
+         input.datepicker(type="date" name="deadline" required)
+         label #{lang.__('deadline')} *
+         i.prefix.fa.fa-calendar
+   hr
+   h5 #{lang.__('order_form_title_2')}
+   br
+   .row
+      .input-field.col.s12.m4
+         input(type="number",name="size_width").form-control
+         label #{lang.__('size_width')}
+      .input-field.col.m1.hide-on-med-and-down
+         label X
+      .input-field.col.s12.m4
+         input(type="number",name="size_height").form-control
+         label #{lang.__('size_height')}
+      .input-field.col.s12.m3(data-name="size_unit")
+         select
+            option(value="px" selected) #{lang.__('px')}
+            option(value="mm") #{lang.__('mm')}
+   .row
+      .input-field.col.s12.m6
+         input(type="number",name="resolution" placeholder="72 , 300 , ...").form-control
+         label #{lang.__('resolution')} &nbsp; (dpi)
+      .input-field.col.s12.m6
+         input(type="text",name="output" placeholder=".ai, .jpeg, .pdf, .psd, ...").autocomplete
+         label #{lang.__('order_output')}
+   hr
+   h5 #{lang.__('order_form_title_3')}
+   br
+   .row
+      .input-field.col.s12.m8
+         input(type="text",name="title" required).form-control
+         label #{lang.__('order_title')} *
+   .row
+      .input-field.col.s12
+         textarea.materialize-textarea(name="comment" required)
+         label #{lang.__('order_comment')} *
+         i.prefix.fa.fa-commenting
+   .row
+      .input-field.col.s12.file-field
+         .btn.waves-effect.waves-light
+            span Previews
+            input(type="file" multiple)
+         .file-path-wrapper
+            input.file-path.validate(type="text" placeholder="#{lang.__('order_preview')}")
+   hr
+   .row
+      .text-error
+   .row.center-align
+      input(type="submit",value="#{lang.__('order')}" onlick="").btn.btn-lg

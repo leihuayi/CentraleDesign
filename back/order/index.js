@@ -5,7 +5,7 @@ var controller = require('./order.controller');
 var router = express.Router();
 var multer  = require('multer');
 
-var upload = multer({ dest: 'temp/' });
+var upload = multer({ dest: 'uploads/' });
 
 /**
  * @api {get} /api/orders/
@@ -19,20 +19,22 @@ var upload = multer({ dest: 'temp/' });
  ]
  *
  */
-//router.get('/', controller.getAll);
+router.get('/', controller.getAll);
 
 
 /**
- * @api {put} /api/orders/:id Edit User info
- * @apiDescription Edit name or image of a user
- * @apiName EditUser
+ * @api {post} /api/orders/
+ * @apiDescription Create an order
+ * @apiName CreateOrder
  * @apiGroup User
- * @apiParam (URL) {Number} id User ID
  * @apiSuccessExample {JSON} Success-Response:
  * HTTP/1.1 200 OK
  *
+ * [
+ ]
+ *
  */
-//router.post('/', upload.single('image'), controller.update);
+router.post('/', upload.array('images'), controller.create);
 
 /**
  * @api {get} /api/orders/:id
@@ -45,19 +47,10 @@ var upload = multer({ dest: 'temp/' });
  * HTTP/1.1 200 OK
  *
  {
-   "id": 1,
-   "username": "mewme",
-   "email": "sarah.gross@mewme.com",
-   "password": "$2a$10$IJJWsD7thflNW2kVfjClqOYacvHcaHiUlW2UMu3/VIGNi.Pt8QfaC",
-   "resetPasswordToken": null,
-   "resetPasswordExpires": null,
-   "profilePicture": null,
-   "createdAt": null,
-   "updatedAt": "2016-12-14T06:41:39.000Z"
  }
  *
  */
-//router.get('/:id', controller.profile);
+router.get('/:id', controller.getOne);
 
 /**
  * @api {put} /api/orders/:id Edit User info
@@ -70,3 +63,6 @@ var upload = multer({ dest: 'temp/' });
  *
  */
 ///router.put('/:id', upload.single('image'), controller.update);
+
+
+module.exports = router;

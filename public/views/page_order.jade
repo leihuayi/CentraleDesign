@@ -1,0 +1,19 @@
+extends layout
+block content
+   .card.col.s12.grey.lighten-4
+      .card-content
+         span.card-title.activator
+            img.circle(src="/public/images/"+order.type+'.png')
+            span.title ##{order.id} : #{order.title}
+            i.right.fa.fa-pencil
+         p=locals.prettyDate(order.createdAt)
+         p=locals.prettyDate(order.deadline)
+         .card.white
+            p=order.content
+
+      .card-reveal
+         span.card-title
+            span Edit
+            i.fa.fa-times.right
+         include partial_order_form
+

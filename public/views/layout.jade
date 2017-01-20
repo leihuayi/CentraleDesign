@@ -10,42 +10,33 @@ html(lang='en')
         link(rel="stylesheet" href="/public/css/style.css")
         link(rel="stylesheet" href="/public/fonts/font-awesome/css/font-awesome.min.css")
     body
+
+        mixin menu()
+            li
+                a(href="/gallery") #{lang.__('gallery')}
+            li
+                a(href="/order") #{lang.__('order')}
+            li
+                a(href="/faq") FAQ
+            li
+                a(href="/about") #{lang.__('about')}
+            if(typeof(user) == "undefined")
+                li
+                    a.waves-effect.waves-light.btn.btn-sm(href="/login") #{lang.__('login')}
+            else
+                li
+                    a.waves-effect.waves-light.btn.btn-sm(href="/login") #{lang.__('logout')}
+
         nav
             .nav-wrapper
                 a.brand-logo.text-secondary(href="/") #{lang.__('asso_name')}
                 a.button-collapse.text-secondary(href="#" data-activates="mobile-demo")
                     i.fa.fa-bars
                 ul.right.hide-on-med-and-down
-                    li
-                        a(href="/") #{lang.__('gallery')}
-                    li
-                        a(href="/") #{lang.__('order')}
-                    li
-                        a(href="/") FAQ
-                    li
-                        a(href="/") #{lang.__('about')}
-                    if(typeof(user) == "undefined")
-                        li
-                            a.waves-effect.waves-light.btn(href="/login") #{lang.__('login')}
-                    else
-                        li
-                            a.waves-effect.waves-light.btn(href="/login") #{lang.__('logout')}
+                    +menu()
 
                 ul.side-nav#mobile-demo
-                    li
-                        a(href="/") #{lang.__('gallery')}
-                    li
-                        a(href="/") #{lang.__('order')}
-                    li
-                        a(href="/") FAQ
-                    li
-                        a(href="/") #{lang.__('about')}
-                    if(typeof(user) == "undefined")
-                        li
-                            a.waves-effect.waves-light.btn.btn-sm(href="/login") #{lang.__('login')}
-                    else
-                        li
-                            a.waves-effect.waves-light.btn.btn-sm(href="/login") #{lang.__('logout')}
+                    +menu()
 
         main
             .container

@@ -586,6 +586,10 @@ td, th{
   background-color: $secondary-color !important;
 }
 
+.text-error{
+  color: $error-color;
+}
+
 .collapsible .collection {
   margin: 0;
   border: none;

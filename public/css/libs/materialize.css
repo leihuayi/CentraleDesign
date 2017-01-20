@@ -2434,6 +2434,9 @@ td, th {
 .bg-secondary {
   background-color: #512da8 !important; }
 
+.text-error {
+  color: #D32F2F; }
+
 .collapsible .collection {
   margin: 0;
   border: none; }
@@ -4307,8 +4310,8 @@ textarea.materialize-textarea {
   input[type=search]:focus.invalid,
   textarea.materialize-textarea.invalid,
   textarea.materialize-textarea:focus.invalid {
-    border-bottom: 1px solid #F44336;
-    box-shadow: 0 1px 0 0 #F44336; }
+    border-bottom: 1px solid #D32F2F;
+    box-shadow: 0 1px 0 0 #D32F2F; }
   input:not([type]).invalid + label:after, input:not([type]):focus.invalid + label:after,
   input[type=text].invalid + label:after,
   input[type=text]:focus.invalid + label:after,
@@ -4335,7 +4338,7 @@ textarea.materialize-textarea {
   textarea.materialize-textarea.invalid + label:after,
   textarea.materialize-textarea:focus.invalid + label:after {
     content: attr(data-error);
-    color: #F44336;
+    color: #D32F2F;
     opacity: 1; }
   input:not([type]).validate + label,
   input[type=text].validate + label,

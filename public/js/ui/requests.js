@@ -21,10 +21,10 @@ function apiRequests() {
             dataType: 'json',
             statusCode: {
                 404: function() {
-                    alert(translation.error_no_Order);
+                    alert(translation.error);
                 },
                 400: function() {
-                    alert(translation.error_scene_create_missing);
+                    alert(translation.error);
                 }
             }
         })

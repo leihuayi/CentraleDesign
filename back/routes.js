@@ -6,6 +6,7 @@ var url = require('url');
 var config = require('./config/config');
 var fs = require('fs');
 var userController = require('./user/user.controller');
+var orderController = require('./order/order.controller');
 
 module.exports = function(app,passport) {
     // HTTP Request settings
@@ -19,6 +20,8 @@ module.exports = function(app,passport) {
     // Static routes (__dirname is the 'project_path/back/' path)
     //app.use('/assets', express.static(__dirname + '/../bower_components'));
     app.use('/public', express.static(__dirname + '/../public/'));
+
+    app.locals.prettyDate = prettyDate;
 
     // LOGIN ===============================
     // show the login form
@@ -66,7 +69,6 @@ module.exports = function(app,passport) {
 
 
     // LOGOUT ==============================
-
     app.get('/logout', function(req, res) {
         req.logout();
         res.redirect('/');
@@ -87,19 +89,51 @@ module.exports = function(app,passport) {
 
     // HOME PAGE (with login links) ========
     app.get('/', function(req, res) {
-        res.render('index.jade', {
+        if(req.user){
+            orderController.getUserOrders(req,res)
+                .then(function(orders){
+                    res.render('my_orders.jade', {
+                        user : req.user,
+                        orders: orders,
+                        lang: res
+                    });
+                })
+        }
+        else{
+            res.render('index.jade', {
+                user : req.user,
+                lang: res
+            });
+        }
+    });
+
+
+    // ORDER   ===============
+    app.get('/order', isLoggedIn, function(req, res) {
+        res.render('create_order.jade', {
             user : req.user,
             lang: res
         });
     });
 
-
-    // MY PROPERTIES PAGE   ===============
-    app.get('/order', isLoggedIn, function(req, res) {
-
+    // ORDER   ===============
+    app.get('/order/:id', isLoggedIn, function(req, res) {
+        orderController.getOne(req,res)
+            .then(function(order){
+                if(order.user_id == req.user.id) {
+                    res.render('page_order.jade', {
+                        user : req.user,
+                        order: order,
+                        lang: res
+                    });
+                }
+                else {
+                    res.redirect('/error');
+                }
+            })
     });
 
-    //Render jade page
+    //Render jade page  ===============
     app.post('/render',function(req,res) {
         if(req.body.page && req.body.property) {
             res.render(req.body.page+'.jade', {property : req.body.property, lang: res},function(err, layout){
@@ -144,6 +178,7 @@ module.exports = function(app,passport) {
 
     // API routes
     app.use('/api/users', require('./user'));
+    app.use('/api/orders', require('./order'));
 
     //The 404 Route (ALWAYS Keep this as the last route)
     app.get('*', function(req, res){
@@ -190,4 +225,13 @@ function isLoggedIn(req, res, next) {
     // if they aren't redirect them to the home page
     req.session.redirectTo = req.url;
     res.redirect('/login');
+}
+
+function prettyDate(dateString){
+    //if it's already a date object and not a string you don't need this line:
+    var date = new Date(dateString);
+    var d = date.getDate();
+    var m = date.getMonth() + 1;
+    var y = date.getFullYear();
+    return date.getDate()+'/'+date.getMonth() + 1+'/'+y;
 }
