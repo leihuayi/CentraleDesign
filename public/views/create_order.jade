@@ -1,11 +1,13 @@
 extends layout
 block content
-   .row
-      h3 #{lang.__('order')}
-   .row
-      .col.s12.l12
-         .card-panel
-            include partial_order_form
+   main
+      .container
+         .row
+            h3 #{lang.__('order')}
+         .row
+            .col.s12.l12
+               .card-panel
+                  include partial_order_form
 
 
 

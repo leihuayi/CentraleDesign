@@ -56,9 +56,8 @@ $( document ).ready(function(){
         selectMonths: true, // Creates a dropdown to control month
         selectYears: 15 // Creates a dropdown of 15 years to control year
     });
-    $('.modal').modal();
-    $('#modal_order_conditions').modal('close');
 
+    $('.carousel.carousel-slider').carousel({full_width: true, interval:2000});
 
     $('#form_order').submit(function (event){
         event.preventDefault();

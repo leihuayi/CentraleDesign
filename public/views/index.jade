@@ -1,5 +1,29 @@
 extends layout
 block content
-    br
-    br
-    div Index page without login
+    main
+        .carousel.carousel-slider.center(data-indicators="true")
+            .carousel-fixed-item
+                h3.white-text Beautiful, fast designs by students.
+                a.btn.waves-effect.waves-light(href="/order") #{lang.__('order')}
+            a.carousel-item(href="#one!")
+                img(src="/public/images/photos/carousel_1.jpg")
+            a.carousel-item(href="#two!")
+                img(src="/public/images/photos/carousel_2.jpg")
+            a.carousel-item(href="#three!")
+                img(src="/public/images/photos/carousel_3.jpg")
+            a.carousel-item(href="#four!")
+                img(src="/public/images/photos/carousel_4.jpg")
+
+        .row
+            .col.s12.m4.index-icon.center-align
+                include ../images/icons/clock.svg
+                h5 FAST
+                P CSDesign is really fast !
+            .col.s12.m4.index-icon.center-align
+                include ../images/icons/award.svg
+                h5 RELIABLE
+                P CSDesign has a lot of experience.
+            .col.s12.m4.index-icon.center-align
+                include ../images/icons/cheap.svg
+                h5 CHEAP
+                P You pay for student projects

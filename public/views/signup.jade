@@ -1,33 +1,34 @@
 extends layout
 block content
+   main
+      .container
+         .row
+            h3 #{lang.__('register')}
+         .row
+            .col.s12.l12
+               .card-panel
+                  form.container(action="/signup",method="post")
+                     .row
+                        .input-field.col.s12
+                           input(type="text",name="username").form-control
+                           label #{lang.__('username')}
+                     .row
+                        .input-field.col.s12
+                           input(type="email",name="email").form-control
+                           label #{lang.__('email')}
+                     .row
+                        .input-field.col.s12
+                           input(type="password",name="password").form-control
+                           label #{lang.__('password')}
+                     .row
+                        .input-field.col.s12
+                           input(type="password",name="confirm").form-control
+                           label #{lang.__('confirm')} #{lang.__('password')}
 
-   .row
-      h3 #{lang.__('register')}
-   .row
-      .col.s12.l12
-         .card-panel
-            form.container(action="/signup",method="post")
-               .row
-                  .input-field.col.s12
-                     input(type="text",name="username").form-control
-                     label #{lang.__('username')}
-               .row
-                  .input-field.col.s12
-                     input(type="email",name="email").form-control
-                     label #{lang.__('email')}
-               .row
-                  .input-field.col.s12
-                     input(type="password",name="password").form-control
-                     label #{lang.__('password')}
-               .row
-                  .input-field.col.s12
-                     input(type="password",name="confirm").form-control
-                     label #{lang.__('confirm')} #{lang.__('password')}
+                     .row.center-align
+                        input(type="submit",value="#{lang.__('register')}" onlick="").btn.btn-lg
 
-               .row.center-align
-                  input(type="submit",value="#{lang.__('register')}" onlick="").btn.btn-lg
-
-               if message
-                  .row
-                     .text-error
-                        span=message
+                     if message
+                        .row
+                           .text-error
+                              span=message

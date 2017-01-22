@@ -1,20 +1,21 @@
 extends layout
 block content
+    main
+        .container
+            .row
+                h3 #{lang.__('forgot_password')}
+            .row
+                .col.s12.l12
+                    .card-panel
+                        form.container(action="/forget",method="POST")
+                            .row
+                                .input-field.col.s12
+                                    input(type="email",name="email").form-control
+                                    label #{lang.__('email')}
 
-    .row
-        h3 #{lang.__('forgot_password')}
-    .row
-        .col.s12.l12
-            .card-panel
-                form.container(action="/forget",method="POST")
-                    .row
-                        .input-field.col.s12
-                            input(type="email",name="email").form-control
-                            label #{lang.__('email')}
-
-                    .row.center-align
-                        input(type="submit",value="#{lang.__('reset')}" onlick="").btn.btn-lg
-                    if message
-                        .row
-                            .text-error
-                                span=message
+                            .row.center-align
+                                input(type="submit",value="#{lang.__('reset')}" onlick="").btn.btn-lg
+                            if message
+                                .row
+                                    .text-error
+                                        span=message

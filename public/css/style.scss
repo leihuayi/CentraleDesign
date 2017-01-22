@@ -1,3 +1,5 @@
+$secondary-color : #5b32bc;
+
 body{
   width:100%;
   padding:0;
@@ -8,6 +10,11 @@ body{
 
 main {
   flex: 1 0 auto;
+}
+
+a:hover{
+  text-decoration: none !important;
+  color:inherit;
 }
 
 .nav-wrapper {
@@ -22,6 +29,10 @@ main {
   border: none;
 }
 
+.carousel-slider{
+  height:300px !important;
+}
+
 #my_orders .collection-item.avatar{
   &:hover{
     cursor: pointer;
@@ -32,6 +43,19 @@ main {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+  }
+}
+
+.index-icon{
+  padding: 50px !important;
+
+  h4,h5,h6 {
+    color:$secondary-color;
+  }
+
+  svg, path{
+    max-width: 200px;
+    fill: $secondary-color;
   }
 }
 

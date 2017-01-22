@@ -1,28 +1,30 @@
 extends layout
 block content
-    .row
-        h3 #{lang.__('login')}
-    .row
-        .col.s12.l12
-            .card
-                .card-content
-                    form.container(action="/login",method="post")
-                        .row
-                            .input-field.col.s12
-                                input(type="email",name="email").form-control
-                                label #{lang.__('email')}
-                        .row
-                            .input-field.col.s12
-                                input(type="password",name="password").form-control
-                                label #{lang.__('password')}
-                        .row.center-align
-                            input(type="submit",value="#{lang.__('login')}" onlick="").btn.btn-lg
+    main
+        .container
+            .row
+                h3 #{lang.__('login')}
+            .row
+                .col.s12.l12
+                    .card
+                        .card-content
+                            form.container(action="/login",method="post")
+                                .row
+                                    .input-field.col.s12vi
+                                        input(type="email",name="email").form-control
+                                        label #{lang.__('email')}
+                                .row
+                                    .input-field.col.s12
+                                        input(type="password",name="password").form-control
+                                        label #{lang.__('password')}
+                                .row.center-align
+                                    input(type="submit",value="#{lang.__('login')}" onlick="").btn.btn-lg
 
-                        if message
-                            .row
-                                .text-error
-                                    span=message
+                                if message
+                                    .row
+                                        .text-error
+                                            span=message
 
-                .card-action
-                    a(href="/signup") #{lang.__('register')}
-                    a.right(href="/forget") #{lang.__('forgot_password')}
+                        .card-action
+                            a(href="/signup") #{lang.__('register')}
+                            a.right(href="/forget") #{lang.__('forgot_password')}
