@@ -7,14 +7,7 @@ var Order = require('../config/db').Order;
 
 module.exports.create = function (req, res) {
     console.log('---------------- CREATE ORDER -------------------');
-    console.log(req.body);
     if (req.user) {
-        console.log(req.files.length);
-        console.log(req.files[0]);
-
-        res.send('fini');
-
-        /*
         req.body.user_id = req.user.id;
         Order
             .create(req.body)
@@ -33,7 +26,7 @@ module.exports.create = function (req, res) {
                         fs.unlink(file.path);
                     });
                 }
-            });*/
+            });
     } else {
         res.status(400).send(req.__('error_no_log'));
     }
@@ -134,32 +127,32 @@ function updateOrderFiles(req, res, orderId) {
             fs.mkdirSync(targetFolder);
         }
         var images = [];
-        req.files.forEach(function (file, index){
-            sharp(file.path).resize(500, null).toFile(targetFolder+index+".png", function (err) {
-                if (err) {
-                    res.send(err)
-                } else {
-                    fs.unlink(file.path);
-                    images.push(targetUrl+index+".png");
-                }
-            });
-        });
-        console.log(images);
+        for(var i=0;i<req.files.length;i++){
+            (function(index){
+                sharp(req.files[index].path).resize(500, null).toFile(targetFolder+index+".png", function (err) {
+                    if (err) {
+                        res.status(500).send(err.toString());
+                    } else {
+                        fs.unlink(req.files[index].path);
+                        images.push(targetUrl+index+".png");
 
-        Order
-            .update({
-                images: images
-            }, {
-                where: {
-                    id: orderId
-                }
-            })
-            .then(function (response) {
-                res.json(response);
-            })
-            .catch(function (err) {
-                res.status(500).send(err.toString());
-                fs.unlink(req.file.path);
-            });
+                        if(index == req.files.length-1){
+                            Order
+                                .update({
+                                    images: images
+                                }, {
+                                    where: {
+                                        id: orderId
+                                    }
+                                })
+                                .then(function (response) {
+                                    res.json(response);
+                                });
+                        }
+                    }
+                });
+            }(i))
+        }
+
     });
 }

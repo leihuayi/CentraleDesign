@@ -10,3 +10,4 @@ back/access.log
 back/config/config.json
 public/css/libs/materialize.css.map
 public/css/style.css.map
+public/images/orders/*

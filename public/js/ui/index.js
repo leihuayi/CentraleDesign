@@ -20,13 +20,6 @@ function sendOrder($form) {
     if(required){
         var data = new FormData($form[0]);
 
-        //Get all image files
-        var arrayFiles = [];
-        $.each($($form.find("input[type='file']"))[0].files, function(i, file) {
-            arrayFiles.push(file);
-        });
-        data.append('images',arrayFiles);
-
         //Get selected type
         var selected = $form.find('div[data-name="type"] .dropdown-content li.active').index();
         var type = $form.find('div[data-name="type"] select option').eq(selected).val();
@@ -37,7 +30,7 @@ function sendOrder($form) {
             .createOrder(data)
             .then(function(response){
                 window.location.href="/";
-            })
+            });
     }
 
     else{
