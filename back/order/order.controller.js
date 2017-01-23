@@ -40,14 +40,26 @@ module.exports.create = function (req, res) {
 };
 
 module.exports.getAll = function(req,res) {
-    Order
-        .findAll({order: 'createdAt DESC'})
-        .then(function(response){
-            res.json(response);
-        })
-        .catch(function (err) {
-            res.status(500).send(err.toString());
-        });
+    if(req.user) {
+        return Order
+            .findAll({order: 'createdAt DESC'})
+            .then(function(response){
+                return response;
+            })
+            .catch(function (err) {
+                res.status(500).send(err.toString());
+            });
+    }
+    else {
+        Order
+            .findAll({order: 'createdAt DESC'})
+            .then(function(response){
+                res.json(response);
+            })
+            .catch(function (err) {
+                res.status(500).send(err.toString());
+            });
+    }
 };
 
 module.exports.getUserOrders = function(req,res) {

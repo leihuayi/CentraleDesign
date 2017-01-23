@@ -21,10 +21,24 @@ var smtpTransport = nodemailer.createTransport('SMTP', {
 });
 
 module.exports.getAll = function(req,res) {
-    User.findAll()
-        .then(function(response){
-            res.json(response);
-        })
+    if(req.user){
+        return User.findAll()
+            .then(function(response){
+                return response;
+            })
+            .catch(function (err) {
+                res.status(500).send(err.toString());
+            });
+    }
+    else {
+        User.findAll()
+            .then(function(response){
+                res.json(response);
+            })
+            .catch(function (err) {
+                res.status(500).send(err.toString());
+            });
+    }
 };
 
 /**

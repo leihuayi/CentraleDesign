@@ -28,6 +28,9 @@ var User = database.define('user', {
     },
     resetPasswordExpires: {
         type: Sequelize.DATE
+    },
+    role : {
+        type: Sequelize.INTEGER
     }
 }, {
     freezeTableName: true

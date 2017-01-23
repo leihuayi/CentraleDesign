@@ -20,6 +20,10 @@ html(lang='en')
                 a(href="/faq") FAQ
             li
                 a(href="/about") #{lang.__('about')}
+            if(typeof user !== "undefined" && user.role == locals.constants.ROLE_DESIGNER)
+                li
+                    a(onclick="openModal(modal_menu_designer)")
+                        i.fa.fa-gear
             if(typeof(user) == "undefined")
                 li
                     a.waves-effect.waves-light.btn.btn-sm(href="/login") #{lang.__('login')}
@@ -39,6 +43,23 @@ html(lang='en')
                     +menu()
 
         block content
+
+        if(typeof user !== "undefined" && user.role == locals.constants.ROLE_DESIGNER)
+            //Designer modal
+            #modal_menu_designer.fade.bottom-sheet(tabindex="-1" role="dialog")
+                .modal-content
+                    .modal-header
+                        button.close(type="button" data-dismiss="modal" aria-label="Close")
+                            span(aria-hidden="true") &times;
+                        h6 Designer menu
+                    .modal-body
+                        a.btn(href="/order/all")
+                            i.left.fa.fa-pencil
+                            span Edit orders
+                        span &nbsp;
+                        a.btn(href="/user/all")
+                            i.left.fa.fa-user
+                            span User rights
 
         footer.page-footer
             .container

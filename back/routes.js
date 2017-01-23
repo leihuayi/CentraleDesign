@@ -7,6 +7,7 @@ var config = require('./config/config');
 var fs = require('fs');
 var userController = require('./user/user.controller');
 var orderController = require('./order/order.controller');
+var constants = require('./constants');
 
 module.exports = function(app,passport) {
     // HTTP Request settings
@@ -22,6 +23,7 @@ module.exports = function(app,passport) {
     app.use('/public', express.static(__dirname + '/../public/'));
 
     app.locals.prettyDate = prettyDate;
+    app.locals.constants = constants;
 
     // LOGIN ===============================
     // show the login form
@@ -92,7 +94,7 @@ module.exports = function(app,passport) {
         if(req.user){
             orderController.getUserOrders(req,res)
                 .then(function(orders){
-                    res.render('my_orders.jade', {
+                    res.render('list_orders.jade', {
                         user : req.user,
                         orders: orders,
                         lang: res
@@ -116,14 +118,48 @@ module.exports = function(app,passport) {
         });
     });
 
+    // ALL ORDERS (DESIGNER)   ===============
+    app.get('/order/:id', isLoggedIn, function(req, res) {
+        if(req.user.role == constants.ROLE_DESIGNER) {
+            orderController.getAll(req,res)
+                .then(function(orders){
+                    res.render('list_orders.jade', {
+                        user : req.user,
+                        orders: orders,
+                        lang: res
+                    });
+                })
+        }
+        else {
+            res.redirect('/error');
+        }
+    });
+
     // ORDER   ===============
     app.get('/order/:id', isLoggedIn, function(req, res) {
         orderController.getOne(req,res)
             .then(function(order){
-                if(order.user_id == req.user.id) {
+                if(order.user_id == req.user.id || req.user.role == constants.ROLE_DESIGNER) {
                     res.render('page_order.jade', {
                         user : req.user,
                         order: order,
+                        lang: res
+                    });
+                }
+                else {
+                    res.redirect('/error');
+                }
+            })
+    });
+
+    // ALL USERS (DESIGNER)  ===============
+    app.get('/user/all', isLoggedIn, function(req, res) {
+        userController.getAll(req,res)
+            .then(function(users){
+                if(req.user.role == constants.ROLE_DESIGNER) {
+                    res.render('page_order.jade', {
+                        user : req.user,
+                        users: users,
                         lang: res
                     });
                 }

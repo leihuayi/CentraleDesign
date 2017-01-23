@@ -1,24 +1,4 @@
-var config;
-
-try {
-    config = require('./config.json');
-    // do stuff
-} catch (ex) {
-    config = {
-        "database": {
-            "host": "localhost",
-            "user": "csdesign",
-            "password": "CSBest4Design!",
-            "port": 3306,
-            "dbName": "csdesign"
-        },
-        "server": {
-            "port": 8888,
-            "host": "localhost"
-        },
-        "forceDb": false
-    };
-}
+var config = require('./config.json');
 
 module.exports.database = {
     host: process.env.DB_HOST || config.database.host,

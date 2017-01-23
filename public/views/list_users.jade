@@ -5,16 +5,11 @@ block content
          br
          br
          h1 #{user.username} orders
-
          ul.collection#my_orders
             each order in orders
-               li.collection-item.avatar(data-href="/order/"+order.id)
-                  img.circle(alt=order.type src="/public/images/icons/"+order.type+".png")
+               li.collection-item
                   span.title ##{order.id} : #{order.title}
                   p #{locals.prettyDate(order.createdAt)} &bull; for : #{locals.prettyDate(order.deadline)}
                   p=order.comment
-                  a.secondary-content(href="/order/"+order.id)
-                     i.fa.fa-chevron-right
-
-
-
+                  span.secondary-content
+                     i.fa.fa-dot-circle-o

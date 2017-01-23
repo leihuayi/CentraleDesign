@@ -46,9 +46,15 @@ function sendOrder($form) {
 
 }
 
+function openModal(modal){
+    $(modal).modal();
+    $('.modal.bottom-sheet').animate({'bottom':0})
+}
+
 $( document ).ready(function(){
     $(".button-collapse").sideNav();
     $('select').material_select();
+
     //Give a name attribute to the input
     $('input.select-dropdown').each(function (){
         $(this).attr("name",$(this).closest('.input-field').data('name'));});
@@ -69,4 +75,6 @@ $( document ).ready(function(){
     });
 
     Materialize.showStaggeredList('#my_orders');
+
+    $('#modal_menu_designer').addClass('modal');
 });
