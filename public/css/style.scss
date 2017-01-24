@@ -21,37 +21,62 @@ a:hover{
   padding: 0 15px;
 }
 
-.modal-content{
-  background-color: #fafafa;
-  box-shadow: none;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  border: none;
+table {
+  img {
+    width: 50px;
+  }
 }
 
-.modal.bottom-sheet .modal-content{
-  padding: 0;
+.modal{
+  top: 40%;
+  bottom: initial;
+  transform: translateY(-50%);
+
+  .modal-content{
+    padding: 0;
+    background-color: #fafafa;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    border: none;
+  }
+
+  &.bottom-sheet{
+    transform: initial;
+  }
 }
 
 .carousel-slider{
-  height:300px !important;
-}
-
-#my_orders .collection-item.avatar{
-  &:hover{
-    cursor: pointer;
-    background-color: #efefef;
+  height:400px !important;
+  .carousel-item{
+    line-height:400px;
   }
 
-  p{
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
+  img{
+    margin:-100% 0;
+    vertical-align: middle;
+    width:100%;
+    height:auto;
+  }
+}
+
+.order-action{
+  padding:10px;
+  color: grey;
+}
+
+.dropdown-content{
+  min-width:150px;
+
+  li{
+    min-height: 20px;
+    line-height: 30px;
+    padding: 10px;
   }
 }
 
 .index-icon{
-  padding: 50px !important;
+  padding: 50px 50px 0 50px !important;
 
   h4,h5,h6 {
     color:$secondary-color;
@@ -62,4 +87,18 @@ a:hover{
     fill: $secondary-color;
   }
 }
+
+@media screen and (max-width: 780px) {
+  tr,td {
+    font-size:10px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .carousel-slider img{
+    height:100%;
+    width:auto;
+  }
+}
+
 

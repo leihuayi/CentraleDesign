@@ -39,9 +39,59 @@ function sendOrder($form) {
 
 }
 
-function openModal(modal){
+function openModal(modal,id){
     $(modal).modal();
+    if(id){
+        $(modal).data('id',id);
+    }
     $('.modal.bottom-sheet').animate({'bottom':0})
+}
+
+function initAutocompletes(){
+    //Set designer autocomplete
+    api.getDesigners()
+        .then(function(designers){
+            var data={};
+            $.each(designers,function(index, designer){
+                data['#'+designer.id+' : '+designer.email] = null;
+
+                if(index == designers.length-1) {
+                    $('#autocomplete_designer').autocomplete({
+                        data: data
+                    });
+                }
+            });
+        })
+}
+
+function assignDesigner(){
+    var $modal = $('#modal_set_designer');
+    var orderId = $modal.data('id');
+    var data = new FormData();
+    data.append("order_id",orderId);
+    data.append("designer_id",$modal.find('input').val().substring(1,$modal.find('input').val().indexOf(':')));
+
+    var columnDesignerIndex = $('table th[data-field="designer"]').index();
+    var designerOrderCell = $('table tr[data-id="'+orderId+'"]').find('td:eq('+columnDesignerIndex+')');
+
+    if(designerOrderCell.data('id')){
+        api.updateDesignerOrder(designerOrderCell.data('id'), data)
+            .then(function(designerOrder){
+                updateDesignerAssigned(designerOrder);
+            })
+    }
+    else{
+        api.createDesignerOrder(data)
+            .then(function(designerOrder){
+                updateDesignerAssigned(designerOrder);
+            })
+    }
+
+    function updateDesignerAssigned(designerOrder){
+        designerOrderCell.data('id', designerOrder.id);
+        designerOrderCell.text(designerOrder.designer_id);
+        //$modal.modal('close');
+    }
 }
 
 $( document ).ready(function(){
@@ -67,7 +117,6 @@ $( document ).ready(function(){
         window.location.href=$(this).data('href');
     });
 
-    Materialize.showStaggeredList('#my_orders');
+    initAutocompletes();
 
-    $('#modal_menu_designer').addClass('modal');
 });

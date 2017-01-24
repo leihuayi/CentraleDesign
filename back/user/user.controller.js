@@ -1,13 +1,15 @@
 'use strict';
 
 var User = require('../config/db').User;
+var Order = require('../config/db').Order;
+var DesignerOrder = require('../config/db').DesignerOrder;
 var async = require('async');
 var bcrypt = require('bcrypt-nodejs');
 var crypto = require('crypto');
 var nodemailer = require('nodemailer');
 var config = require('./../config/config');
+var constants = require('../constants');
 var fs = require('fs');
-var sharp = require('sharp');
 var passport = require('passport');
 
 var smtpTransport = nodemailer.createTransport('SMTP', {
@@ -20,37 +22,49 @@ var smtpTransport = nodemailer.createTransport('SMTP', {
     }
 });
 
+/**
+ * Get All Users
+ * @param req
+ * @param res
+ * @returns JSON
+ */
 module.exports.getAll = function(req,res) {
-    if(req.user){
-        return User.findAll()
-            .then(function(response){
-                return response;
-            })
-            .catch(function (err) {
-                res.status(500).send(err.toString());
-            });
-    }
-    else {
-        User.findAll()
-            .then(function(response){
-                res.json(response);
-            })
-            .catch(function (err) {
-                res.status(500).send(err.toString());
-            });
-    }
+    return User.findAll()
+        .then(function(response){
+            res.json(response);
+        })
+        .catch(function (err) {
+            res.status(500).send(err.toString());
+        });
 };
 
 /**
- * Get all the info on a user : profile and properties created
- * Purpose: display on web
- * Info : creator username, profile picture, and infos on his created properties
- * Use : profile page (included my page)
+ * Get All Designers
+ * @param req
+ * @param res
+ * @returns JSON
+ */
+module.exports.getDesigners = function(req,res) {
+    return User.findAll({
+            where: {
+                role: constants.ROLE_DESIGNER
+            }
+        })
+        .then(function(response){
+            res.json(response);
+        })
+        .catch(function (err) {
+            res.status(500).send(err.toString());
+        });
+
+};
+
+/**
+ * Get all the info on a user
  * @param req
  * @param res
  */
 module.exports.profile = function(req,res) {
-    var format = req.query.format;
     console.log('------- PROFILE '+ req.params.id +' --------');
     return User
             .findOne({
@@ -59,11 +73,11 @@ module.exports.profile = function(req,res) {
                 }
             })
             .then(function (user) {
-                if(format && format == 'json'){
-                    res.json(user);
+                if(req.user){
+                    return user.get({plain: true});
                 }
                 else{
-                    return user.get({plain: true});
+                    res.json(user);
                 }
 
             })
@@ -284,8 +298,24 @@ module.exports.delete = function(req,res){
                     }
                 })
                 .then(function(){
-                    //delete user picture
-                    console.log("User deleted")
+                    Order
+                        .destroy({
+                            where : {
+                                user_id : userId
+                            }
+                        })
+                        .then(function(){
+                            DesignerOrder
+                                .destroy({
+                                    where : {
+                                        designer_id : userId
+                                    }
+                                })
+                                .then(function(){ console.log("User deleted"); })
+                        });
+                })
+                .catch(function(err){
+                    res.status(500).send("Error in deleting user : "+err.toString());
                 })
         });
     }

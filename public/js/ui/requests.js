@@ -6,6 +6,9 @@ function apiRequests() {
         updateOrder: updateOrder,
         deleteOrder: deleteOrder,
         searchOrders: searchOrders,
+        createDesignerOrder : createDesignerOrder,
+        updateDesignerOrder : updateDesignerOrder,
+        getDesigners : getDesigners,
         updateUser: updateUser,
         deleteUser: deleteUser,
         getLayout : getLayout
@@ -20,9 +23,6 @@ function apiRequests() {
             contentType: false,
             dataType: 'json',
             statusCode: {
-                404: function() {
-                    alert(translation.error);
-                },
                 400: function() {
                     alert(translation.error);
                 }
@@ -62,6 +62,51 @@ function apiRequests() {
             url: api + 'orders/search?query='+query+'&format=json',
             type: 'GET',
 
+            error: function (err){
+                alert(translation.error);
+            }
+        });
+    }
+
+    function createDesignerOrder(data) {
+        return $.ajax({
+            url: api + 'designer-orders/',
+            type: 'POST',
+            data: data,
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            statusCode: {
+                400: function() {
+                    alert(translation.error);
+                }
+            }
+        })
+    }
+
+    function updateDesignerOrder(id, data) {
+        return $.ajax({
+            url: api + 'designer-orders/'+id,
+            type: 'PUT',
+            data: data,
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            statusCode: {
+                404: function() {
+                    alert(translation.error);
+                },
+                400: function() {
+                    alert(translation.error);
+                }
+            }
+        })
+    }
+
+    function getDesigners() {
+        return $.ajax({
+            url: api + 'users/designers',
+            type: 'GET',
             error: function (err){
                 alert(translation.error);
             }

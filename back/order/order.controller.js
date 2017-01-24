@@ -3,6 +3,7 @@
 var fs = require('fs');
 var sharp = require('sharp');
 var config = require('../config/config');
+var database = require('../config/db').database;
 var Order = require('../config/db').Order;
 
 module.exports.create = function (req, res) {
@@ -33,26 +34,23 @@ module.exports.create = function (req, res) {
 };
 
 module.exports.getAll = function(req,res) {
-    if(req.user) {
-        return Order
-            .findAll({order: 'createdAt DESC'})
-            .then(function(response){
-                return response;
-            })
-            .catch(function (err) {
-                res.status(500).send(err.toString());
-            });
-    }
-    else {
-        Order
-            .findAll({order: 'createdAt DESC'})
-            .then(function(response){
-                res.json(response);
-            })
-            .catch(function (err) {
-                res.status(500).send(err.toString());
-            });
-    }
+    var select = "`order`.id, `order`.user_id, `order`.deadline, `order`.type, `order`.title, `order`.createdAt, user.username, designer_order.id as designer_order_id, designer_order.designer_id";
+    var options = "LEFT JOIN designer_order ON order.id = designer_order.order_id INNER JOIN user ON order.user_id = user.id";
+    var ordering = " ORDER BY order.createdAt DESC";
+
+    return database
+        .query("SELECT "+select+" FROM `order` "+options+ordering, {model: Order, raw: true})
+        .catch(function (err) {
+            res.status(500).send(err.toString());
+        })
+        .then(function (propertiesVR) {
+            if (req.user) {
+                return (propertiesVR);
+            }
+            else{
+                res.json(propertiesVR);
+            }
+        });
 };
 
 module.exports.getUserOrders = function(req,res) {

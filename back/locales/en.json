@@ -47,6 +47,7 @@
   "error_404": "You have no right to access this page.",
   "error_no_user": "No account with that email address was found.",
   "error_no_log": "No used logged in",
+  "error_no_right": "You do not have the authorization to make this action",
   "error_email": "That email is already taken.",
   "error_password": "Oops! Wrong password.",
   "error_password_match": "The two passwords do not match.",

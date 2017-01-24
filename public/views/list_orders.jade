@@ -4,14 +4,27 @@ block content
       .container
          br
          br
-         h1 #{user.username} orders
+         if(page == 'my')
+            h3 My orders
+         if(page == 'all')
+            h3 All orders
+         if(page == 'assigned')
+            h3 Taken orders
 
-         ul.collection#my_orders
-            each order in orders
-               li.collection-item.avatar(data-href="/order/"+order.id)
-                  img.circle(alt=order.type src="/public/images/icons/"+order.type+".png")
-                  span.title ##{order.id} : #{order.title}
-                  p #{locals.prettyDate(order.createdAt)} &bull; for : #{locals.prettyDate(order.deadline)}
-                  p=order.comment
-                  a.secondary-content(href="/order/"+order.id)
-                     i.fa.fa-chevron-right
+         include partial_table_orders
+
+   if(page == 'all')
+      #modal_set_designer.modal.modal-sm.fade(tabindex="-1" role="dialog")
+         .modal-content
+            .modal-header
+               button.close(type="button" data-dismiss="modal" aria-label="Close")
+                  span(aria-hidden="true") &times;
+               h6 Assign a designer to this order
+            .modal-body
+               .row
+                  .input-field.col.s12
+                     i.fa.fa-user.prefix
+                     input#autocomplete_designer(type="text" class="autocomplete")
+                     label(for="autocomplete_designer") Designer email
+         .modal-footer
+            a.modal-action.modal-close.btn.btn-flat.waves.waves-purple(onclick="assignDesigner()") OK

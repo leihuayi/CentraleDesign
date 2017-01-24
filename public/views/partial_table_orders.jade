@@ -1,0 +1,50 @@
+table
+   thead
+      tr
+         th(data-field="Type").hide-on-small-and-down Type
+         th(data-field="createdAt") Creation date
+         th(data-field="id") Title
+         if(page !=='my')
+            th(data-field="user").hide-on-small-and-down Creator
+         th(data-field="designer") Designer in charge
+         th(data-field="deadline") Deadline
+         if(page == 'all')
+            th(data-field="actions")
+
+   tbody
+      if (orders.length)
+         each order in orders
+            tr(data-id=order.id)
+               //Type illustration
+               td.hide-on-small-and-down
+                  img.circle(alt=order.type src="/public/images/icons/" + order.type + ".png")
+               //Created at
+               td=locals.prettyDate(order.createdAt)
+               //Title
+               td ##{order.id} : #{order.title}
+               //Creator
+               if(page !=='my')
+                  td.hide-on-small-and-down=order.username
+               td(data-id=order.designer_order_id)
+                  if(order.designer_id)
+                     span=order.designer_id
+                  else
+                     i.fa.fa-times
+               td=locals.prettyDate(order.deadline)
+               if(page == 'all')
+                  td
+                     a.dropdown-button.waves.waves-purple(href='#' data-activates='dropdown-'+order.id)
+                        i.right.fa.fa-ellipsis-v.order-action
+
+                     ul(id="dropdown-"+order.id).dropdown-content
+                        li(onclick="openModal(modal_set_designer,"+order.id+")") Set to a designer
+                        li(onclick="openModal(modal_delete_order,"+order.id+")") Delete order
+      else
+         tr
+            td
+            td
+            td
+               span You have made no order yet.
+               a.right.btn.waves.waves-light(href="/order") #{lang.__("order")}
+            td
+            td

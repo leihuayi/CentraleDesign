@@ -46,7 +46,7 @@ html(lang='en')
 
         if(typeof user !== "undefined" && user.role == locals.constants.ROLE_DESIGNER)
             //Designer modal
-            #modal_menu_designer.fade.bottom-sheet(tabindex="-1" role="dialog")
+            #modal_menu_designer.modal.fade.bottom-sheet(tabindex="-1" role="dialog")
                 .modal-content
                     .modal-header
                         button.close(type="button" data-dismiss="modal" aria-label="Close")
@@ -55,7 +55,11 @@ html(lang='en')
                     .modal-body
                         a.btn(href="/order/all")
                             i.left.fa.fa-pencil
-                            span Edit orders
+                            span All orders
+                        span &nbsp;
+                        a.btn(href="/order/assigned")
+                            i.left.fa.fa-clock-o
+                            span Assigned orders
                         span &nbsp;
                         a.btn(href="/user/all")
                             i.left.fa.fa-user

@@ -97,7 +97,8 @@ module.exports = function(app,passport) {
                     res.render('list_orders.jade', {
                         user : req.user,
                         orders: orders,
-                        lang: res
+                        lang: res,
+                        page: 'my'
                     });
                 })
         }
@@ -119,14 +120,33 @@ module.exports = function(app,passport) {
     });
 
     // ALL ORDERS (DESIGNER)   ===============
-    app.get('/order/:id', isLoggedIn, function(req, res) {
+    app.get('/order/all', isLoggedIn, function(req, res) {
         if(req.user.role == constants.ROLE_DESIGNER) {
             orderController.getAll(req,res)
                 .then(function(orders){
                     res.render('list_orders.jade', {
                         user : req.user,
                         orders: orders,
-                        lang: res
+                        lang: res,
+                        page: 'all'
+                    });
+                })
+        }
+        else {
+            res.redirect('/error');
+        }
+    });
+
+    // ALL ORDERS (DESIGNER)   ===============
+    app.get('/order/assigned', isLoggedIn, function(req, res) {
+        if(req.user.role == constants.ROLE_DESIGNER) {
+            orderController.getAll(req,res)
+                .then(function(orders){
+                    res.render('list_orders.jade', {
+                        user : req.user,
+                        orders: orders,
+                        lang: res,
+                        page: 'assigned'
                     });
                 })
         }
@@ -215,6 +235,7 @@ module.exports = function(app,passport) {
     // API routes
     app.use('/api/users', require('./user'));
     app.use('/api/orders', require('./order'));
+    app.use('/api/designer-orders', require('./designer-order'));
 
     //The 404 Route (ALWAYS Keep this as the last route)
     app.get('*', function(req, res){

@@ -15,31 +15,47 @@ var upload = multer({ dest: 'temp/' });
  * @apiSuccessExample {JSON} Success-Response:
  * HTTP/1.1 200 OK
  *
- * [
-         {
-           "id": 1,
-           "username": "mewme",
-           "email": "sarah.gross@mewme.com",
-           "password": "$2a$10$IJJWsD7thflNW2kVfjClqOYacvHcaHiUlW2UMu3/VIGNi.Pt8QfaC",
-           "resetPasswordToken": null,
-           "resetPasswordExpires": null,
-           "createdAt": null,
-           "updatedAt": "2016-12-14T06:41:39.000Z"
-         },
-         {
-           "id": 2,
-           "username": "sassa",
-           "email": "grsassa@gmail.com",
-           "password": "$2a$10$jK8fCZpS1O8jSNwBDmVcxuCfNkGbhuIte/q0H3iynf/WoZ71VMIuu",
-           "resetPasswordToken": "2a59fa5cbc66f88446de37935dfa50dd4928df5a",
-           "resetPasswordExpires": "2016-12-06T11:07:54.000Z",
-           "createdAt": null,
-           "updatedAt": "2016-12-06T10:07:54.000Z"
-         }
-     ]
+ [
+ {
+   "id": 4,
+   "username": "Sassa",
+   "email": "sarah.gross@student.ecp.fr",
+   "password": "$2a$10$Wbky67JWmhY5bJE8R0KA..obZFjnYVAZnvXc/iOMwI62wjVn5S07q",
+   "resetPasswordToken": null,
+   "resetPasswordExpires": null,
+   "role": 2,
+   "createdAt": "2017-01-18T08:02:32.000Z",
+   "updatedAt": "2017-01-23T16:28:49.000Z"
+ },
+ {
+   "id": 5,
+   "username": "Manu",
+   "email": "akahime@via.ecp.fr",
+   "password": "$2a$10$n1kphj7PdRr/GrjXZVXYt.Arw168reMTFeKgSNgR4iAx2nNtlYSg2",
+   "resetPasswordToken": null,
+   "resetPasswordExpires": null,
+   "role": 0,
+   "createdAt": "2017-01-23T10:24:51.000Z",
+   "updatedAt": "2017-01-23T18:24:51.000Z"
+ }
+ ]
  *
  */
 router.get('/', controller.getAll);
+
+/**
+ * @api {get} /api/users/designers
+ * @apiDescription Get all designers
+ * @apiName GetDesigners
+ * @apiGroup User
+ * @apiSuccessExample {JSON} Success-Response:
+ * HTTP/1.1 200 OK
+ *
+ * [
+ ]
+ *
+ */
+router.get('/designers', controller.getDesigners);
 
 /**
  * @api {get} /api/users/:id
