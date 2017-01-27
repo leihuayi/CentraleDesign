@@ -3,18 +3,22 @@ block content
     main
         .container
             .row
-                h3 #{lang.__('error')}
-            .row
                 .col.s12.l12
                     .card-panel
-                        h4.center-align Icons
-                        ul
-                            li
-                                span Cheap :
+                        h5.center-align Icons
+                        ul.staggered-list.credits.fill-white
+                            li.row
+                                .circle.bg-secondary
+                                    include ../images/icons/cheap.svg
+                                span Cheap : &nbsp;
                                 a(href="https://thenounproject.com/grega.cresnar") Gregor Črešnar
-                            li
-                                span Award :
+                            li.row
+                                .circle.bg-secondary
+                                    include ../images/icons/award.svg
+                                span Award : &nbsp;
                                 a(href="https://thenounproject.com/iconsphere") iconsphere
-                            li
-                                span Clock :
+                            li.row
+                                .circle.bg-secondary
+                                    include ../images/icons/clock.svg
+                                span Clock : &nbsp;
                                 a(href="https://thenounproject.com/mooooyai") Khomsun Chaiwong

@@ -74,6 +74,9 @@ var Order = database.define('order', {
     },
     images: {
         type: Sequelize.JSON
+    },
+    progress: {
+        type: Sequelize.INTEGER
     }
 }, {
     freezeTableName: true

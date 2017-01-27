@@ -13,4 +13,14 @@ module.exports.server = {
     host: process.env.SERVER_HOST || config.server.host
 };
 
+module.exports.email = {
+    host: config.email.host,
+    port: config.email.port,
+    secure: config.email.secure,
+    auth: {
+        user: config.email.auth.user,
+        pass: config.email.auth.pass
+    }
+};
+
 module.exports.forceDb = process.env.FORCE_DB || config.forceDb;

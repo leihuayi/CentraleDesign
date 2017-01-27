@@ -5,11 +5,11 @@ block content
          br
          br
          if(page == 'my')
-            h3 My orders
+            h3 #{lang.__('my_orders')}
          if(page == 'all')
-            h3 All orders
+            h3 #{lang.__('all_orders')}
          if(page == 'assigned')
-            h3 Taken orders
+            h3 #{lang.__('assigned_orders')}
 
          include partial_table_orders
 
@@ -19,12 +19,12 @@ block content
             .modal-header
                button.close(type="button" data-dismiss="modal" aria-label="Close")
                   span(aria-hidden="true") &times;
-               h6 Assign a designer to this order
+               h6 #{lang.__('modal_assign_order_title')}
             .modal-body
                .row
                   .input-field.col.s12
                      i.fa.fa-user.prefix
                      input#autocomplete_designer(type="text" class="autocomplete")
-                     label(for="autocomplete_designer") Designer email
+                     label(for="autocomplete_designer") #{lang.__('email')}
          .modal-footer
-            a.modal-action.modal-close.btn.btn-flat.waves.waves-purple(onclick="assignDesigner()") OK
+            a.btn.btn-flat.waves.waves-purple(onclick="assignDesigner()" data-dismiss="modal" aria-label="Close") OK

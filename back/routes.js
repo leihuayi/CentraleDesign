@@ -7,7 +7,7 @@ var config = require('./config/config');
 var fs = require('fs');
 var userController = require('./user/user.controller');
 var orderController = require('./order/order.controller');
-var constants = require('./constants');
+var constants = require('./config/constants');
 
 module.exports = function(app,passport) {
     // HTTP Request settings
@@ -140,7 +140,7 @@ module.exports = function(app,passport) {
     // ALL ORDERS (DESIGNER)   ===============
     app.get('/order/assigned', isLoggedIn, function(req, res) {
         if(req.user.role == constants.ROLE_DESIGNER) {
-            orderController.getAll(req,res)
+            orderController.getAssignedOrders(req,res)
                 .then(function(orders){
                     res.render('list_orders.jade', {
                         user : req.user,
@@ -187,6 +187,13 @@ module.exports = function(app,passport) {
                     res.redirect('/error');
                 }
             })
+    });
+
+    // CREDITS ==============================
+    app.get('/credits', function(req, res) {
+        res.render('credits', {
+            lang: res
+        });
     });
 
     //Render jade page  ===============

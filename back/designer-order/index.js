@@ -5,10 +5,10 @@ var controller = require('./designer-order.controller');
 var router = express.Router();
 
 /**
- * @api {get} /api/orders/
- * @apiDescription Get all orders
- * @apiName Getorders
- * @apiGroup User
+ * @api {get} /api/designer-orders/
+ * @apiDescription Get all designer-orders
+ * @apiName GetDesignerOrders
+ * @apiGroup DesignerOrder
  * @apiSuccessExample {JSON} Success-Response:
  * HTTP/1.1 200 OK
  *
@@ -19,10 +19,10 @@ var router = express.Router();
 //router.get('/', controller.getAll);
 
 /**
- * @api {post} /api/orders/
+ * @api {post} /api/designer-orders/
  * @apiDescription Create an order
- * @apiName CreateOrder
- * @apiGroup User
+ * @apiName CreateDesignerOrder
+ * @apiGroup DesignerOrder
  * @apiSuccessExample {JSON} Success-Response:
  * HTTP/1.1 200 OK
  *
@@ -33,16 +33,16 @@ var router = express.Router();
 router.post('/', controller.create);
 
 /**
- * @api {put} /api/orders/:id Edit User info
+ * @api {delete} /api/designer-orders/:id Edit User info
  * @apiDescription Edit name or image of a user
- * @apiName EditUser
- * @apiGroup User
+ * @apiName DeleteDesignerOrder
+ * @apiGroup DesignerOrder
  * @apiParam (URL) {Number} id User ID
  * @apiSuccessExample {JSON} Success-Response:
  * HTTP/1.1 200 OK
  *
  */
-router.put('/:id', controller.update);
+router.delete('/:id', controller.delete);
 
 
 module.exports = router;

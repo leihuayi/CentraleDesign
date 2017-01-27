@@ -1,21 +1,92 @@
 extends layout
 block content
+
+   - function format(num) { if(num>0) {return num} else {return '-'} }
+   - function tabOfJson(string) {return JSON.parse(string);}
+   - function tabOfString(string) { if(string){return string.split(',')} else{return []}}
+
    main
       .container
          .card.col.s12.grey.lighten-4
-            .card-content
-               span.card-title.activator
-                  img.circle(src="/public/images/icons/"+order.type+'.png')
+            .card-content(data-id=order.id)
+               .row.card-title.activator.center-align
                   span.title ##{order.id} : #{order.title}
                   i.right.fa.fa-pencil
-               p=locals.prettyDate(order.createdAt)
-               p=locals.prettyDate(order.deadline)
-               .card.white
-                  p=order.content
+                  span.right(style="font-size:10px")=locals.prettyDate(order.updatedAt)
+               .row
+                  .col.s12.m3
+                     img.circle.img-responsive(src="/public/images/icons/" + order.type + '.png')
+                     br
+                     br
+                     h6 Responsible designers
+                     br
+                     if(order.designer_emails)
+                        each email in tabOfString(order.designer_emails)
+                           if(email == user.email)
+                              p.badge-designer #{lang.__('me')}
+                           else
+                              p.badge-designer=email
+                           br
+                     else
+                        p -
+
+                  .col.s12.m8.offset-m1
+
+                     ul.collection.staggered-list
+                        li.collection-item
+                           span #{lang.__('orderer')} :
+                           span.secondary-content=order.user_id
+
+                        li.collection-item
+                           span #{lang.__('creation_date')} :
+                           span.secondary-content=locals.prettyDate(order.createdAt)
+
+                        li.collection-item
+                           span #{lang.__('type')} :
+                           span.secondary-content #{lang.__('type_'+order.type)}
+
+                        li.collection-item
+                           span #{lang.__('size')} :
+                           span.secondary-content #{format(order.size_width)} x #{format(order.size_width)} &nbsp; #{order.size_unit}
+
+                        li.collection-item
+                           span #{lang.__('resolution')} :
+                           span.secondary-content=format(order.resolution)
+
+                        li.collection-item
+                           span #{lang.__('order_output')} :
+                           span.secondary-content=order.output
+
+                        li.collection-item
+                           span #{lang.__('order_comment')} : &nbsp; &nbsp;
+                           span=order.comment
+
+                        li.collection-item
+                           span #{lang.__('deadline')} :
+                           span.secondary-content=locals.prettyDate(order.deadline)
+
+               if order.images
+                  .row.children-inline
+                     each url in tabOfJson(order.images)
+                        img.materialboxed(src=url)
+
+               .row
+                  br
+                  h5.center-align Progress
+                  //Is the user one of the designers assigned to this order ?
+                  - var range_class=(tabOfString(order.designer_emails).indexOf(user.email) > -1) ? "range-field" : "range-field disabled"
+                  br
+                  div(class=range_class)
+                     p.range-connect.bg-secondary(style="width:"+order.progress+"%;")
+                     input#range_order(type="range" min="0" max="100" value=order.progress)
+
 
             .card-reveal
                span.card-title
                   span Edit
                   i.fa.fa-times.right
                include partial_order_form
+
+
+
 

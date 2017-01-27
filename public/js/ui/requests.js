@@ -7,7 +7,7 @@ function apiRequests() {
         deleteOrder: deleteOrder,
         searchOrders: searchOrders,
         createDesignerOrder : createDesignerOrder,
-        updateDesignerOrder : updateDesignerOrder,
+        deleteDesignerOrder : deleteDesignerOrder,
         getDesigners : getDesigners,
         updateUser: updateUser,
         deleteUser: deleteUser,
@@ -30,9 +30,9 @@ function apiRequests() {
         })
     }
 
-    function updateOrder(OrderId, data) {
+    function updateOrder(orderId, data) {
         return $.ajax({
-            url: api + 'orders/' + OrderId,
+            url: api + 'orders/' + orderId,
             type: 'PUT',
             data: data,
             processData: false,
@@ -46,13 +46,13 @@ function apiRequests() {
         });
     }
 
-    function deleteOrder(OrderId) {
+    function deleteOrder(orderId) {
         return $.ajax({
-            url: api + 'orders/' + OrderId,
+            url: api + 'orders/' + orderId,
             type: 'DELETE',
 
             error: function (err){
-                alert('Error in deleting Order '+OrderId);
+                alert('Error in deleting Order '+orderId);
             }
         });
     }
@@ -72,35 +72,25 @@ function apiRequests() {
         return $.ajax({
             url: api + 'designer-orders/',
             type: 'POST',
-            data: data,
-            processData: false,
-            contentType: false,
-            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
             statusCode: {
                 400: function() {
                     alert(translation.error);
                 }
             }
-        })
+        });
     }
 
-    function updateDesignerOrder(id, data) {
+    function deleteDesignerOrder(designerOrderId) {
         return $.ajax({
-            url: api + 'designer-orders/'+id,
-            type: 'PUT',
-            data: data,
-            processData: false,
-            contentType: false,
-            dataType: 'json',
-            statusCode: {
-                404: function() {
-                    alert(translation.error);
-                },
-                400: function() {
-                    alert(translation.error);
-                }
+            url: api + 'designer-orders/' + designerOrderId,
+            type: 'DELETE',
+
+            error: function (err){
+                alert('Error in deleting the assignment '+designerOrderId);
             }
-        })
+        });
     }
 
     function getDesigners() {

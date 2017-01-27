@@ -62,7 +62,21 @@ router.get('/:id', controller.getOne);
  * HTTP/1.1 200 OK
  *
  */
-///router.put('/:id', upload.single('image'), controller.update);
+router.put('/:id', upload.single('image'), controller.update);
+
+/**
+ * @api {get} /api/orders/
+ * @apiDescription Get all orders
+ * @apiName Getorders
+ * @apiGroup User
+ * @apiSuccessExample {JSON} Success-Response:
+ * HTTP/1.1 200 OK
+ *
+ * [
+ ]
+ *
+ */
+router.get('/assigned', controller.getAssignedOrders);
 
 
 module.exports = router;

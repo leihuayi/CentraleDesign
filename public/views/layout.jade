@@ -29,7 +29,7 @@ html(lang='en')
                     a.waves-effect.waves-light.btn.btn-sm(href="/login") #{lang.__('login')}
             else
                 li
-                    a.waves-effect.waves-light.btn.btn-sm(href="/login") #{lang.__('logout')}
+                    a.waves-effect.waves-light.btn.btn-sm(href="/logout") #{lang.__('logout')}
 
         nav
             .nav-wrapper
@@ -51,28 +51,27 @@ html(lang='en')
                     .modal-header
                         button.close(type="button" data-dismiss="modal" aria-label="Close")
                             span(aria-hidden="true") &times;
-                        h6 Designer menu
+                        h6 #{lang.__('menu_designer')}
                     .modal-body
                         a.btn(href="/order/all")
                             i.left.fa.fa-pencil
-                            span All orders
+                            span #{lang.__('all_orders')}
                         span &nbsp;
                         a.btn(href="/order/assigned")
                             i.left.fa.fa-clock-o
-                            span Assigned orders
+                            span #{lang.__('assigned_orders')}
                         span &nbsp;
                         a.btn(href="/user/all")
                             i.left.fa.fa-user
-                            span User rights
+                            span #{lang.__('user_rights')}
 
         footer.page-footer
             .container
                 .row
-                    p blabla
+                    a.right(href="/credits") Credits
             .footer-copyright
                 .container
-                    p © 2017 CentraleSupélec Design
-                    a.grey-text.text-lighten-4.right(href="#") More Links
+                    p © 2017 #{lang.__('asso_name')}
 
 
         block scripts

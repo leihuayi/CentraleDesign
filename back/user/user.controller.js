@@ -6,21 +6,11 @@ var DesignerOrder = require('../config/db').DesignerOrder;
 var async = require('async');
 var bcrypt = require('bcrypt-nodejs');
 var crypto = require('crypto');
-var nodemailer = require('nodemailer');
 var config = require('./../config/config');
-var constants = require('../constants');
+var smtpTransport = require('./../config/stmp');
+var constants = require('../config/constants');
 var fs = require('fs');
 var passport = require('passport');
-
-var smtpTransport = nodemailer.createTransport('SMTP', {
-    host: 'smtp.mewlink.com',
-    port: 465,
-    secure: true, // use SSL
-    auth: {
-        user: 'info@mewme.com',
-        pass: 'forinfo01'
-    }
-});
 
 /**
  * Get All Users
@@ -119,7 +109,7 @@ module.exports.createResetToken = function(req,res,next) {
                     .then(function() {
                             var mailOptions = {
                                 to: user.email,
-                                from: 'vr@mewme.com',
+                                from: req.__('asso_email'),
                                 subject: req.__("reset")+' '+req.__("password"),
                                 text: req.__("email_reset_token", {host: req.headers.host, token : token})
                             };

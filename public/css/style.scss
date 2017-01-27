@@ -1,11 +1,35 @@
 $secondary-color : #5b32bc;
 
+@mixin box-shadow($a, $b, $c, $d, $color){
+  -webkit-box-shadow: $a $b $c $d $color;
+  -moz-box-shadow: $a $b $c $d $color;
+  box-shadow: $a $b $c $d $color;
+}
+
+@mixin fill($color) {
+  svg , path {
+    fill : $color;
+  }
+}
+
+.fill-white{
+  @include fill(white);
+}
+
+.fill-secondary{
+  @include fill($secondary-color);
+}
+
 body{
   width:100%;
   padding:0;
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+}
+
+img{
+  width:100%;
 }
 
 main {
@@ -25,6 +49,27 @@ table {
   img {
     width: 50px;
   }
+}
+
+.material-placeholder{
+  margin:15px;
+  max-width:200px;
+  min-width:100px;
+  max-height:200px;
+  min-height:100px;
+  overflow:hidden;
+  &:hover{
+    overflow:initial;
+  }
+
+}
+
+.children-inline > * {
+  display:inline-block
+}
+
+.display-flex{
+  display: flex;
 }
 
 .modal{
@@ -84,8 +129,38 @@ table {
 
   svg, path{
     max-width: 200px;
-    fill: $secondary-color;
   }
+}
+
+.badge-designer{
+  font-size: 12px;
+  background-color: lightgrey;
+  padding: 5px 10px;
+  margin-right: 5px;
+  border-radius: 10px;
+
+  &.edit{
+    cursor:pointer;
+    background-color: #222;
+    color:white;
+  }
+}
+
+.credits {
+  .circle{
+    display: inline-block;
+    width: 70px;
+    height:70px;
+    padding: 10px;
+    margin-right: 20px;
+  }
+}
+
+.range-connect{
+  height: 5px;
+  position: relative;
+  top: 20px;
+  z-index: 1;
 }
 
 @media screen and (max-width: 780px) {

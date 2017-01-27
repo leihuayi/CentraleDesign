@@ -5,13 +5,13 @@ form#form_order.container(enctype="multipart/form-data")
       .input-field.col.s12(data-name="type" required)
          select.icons
             option(value="" disabled selected)
-            option.circle(value="poster" data-icon="/public/images/icons/poster.png") #{lang.__('poster')}
-            option.circle(value="logo" data-icon="/public/images/icons/logo.png") #{lang.__('logo')}
-            option.circle(value="web" data-icon="/public/images/icons/web.png") #{lang.__('web_design')}
-            option.circle(value="app" data-icon="/public/images/icons/app.png") #{lang.__('app_design')}
-            option.circle(value="video" data-icon="/public/images/icons/video.png") #{lang.__('video')}
-            option.circle(value="other" data-icon="/public/images/icons/other.png") #{lang.__('other')}
-         label Choose order type *
+            option.circle(value="poster" data-icon="/public/images/icons/poster.png") #{lang.__('type_poster')}
+            option.circle(value="logo" data-icon="/public/images/icons/logo.png") #{lang.__('type_logo')}
+            option.circle(value="web" data-icon="/public/images/icons/web.png") #{lang.__('type_web')}
+            option.circle(value="app" data-icon="/public/images/icons/app.png") #{lang.__('type_app')}
+            option.circle(value="video" data-icon="/public/images/icons/video.png") #{lang.__('type_video')}
+            option.circle(value="other" data-icon="/public/images/icons/other.png") #{lang.__('type_other')}
+         label Type *
    .row
       .input-field.col.s12.m8
          input.datepicker(type="date" name="deadline" required)

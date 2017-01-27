@@ -1,13 +1,23 @@
+-function designerList(order){
+- var tabEmails = order.designer_emails.split(','), tabIds = order.designer_order_ids.split(','), tab = [];
+- for(var i=0;i<tabIds.length;i++) {
+-     tab.push({email : tabEmails[i].substring(0,tabEmails[i].indexOf('@')),id : tabIds[i]});
+-  }
+- return tab;
+-}
+
+
 table
    thead
       tr
          th(data-field="Type").hide-on-small-and-down Type
-         th(data-field="createdAt") Creation date
-         th(data-field="id") Title
+         th(data-field="createdAt") #{lang.__('creation_date')}
+         th(data-field="id") #{lang.__('title')}
          if(page !=='my')
-            th(data-field="user").hide-on-small-and-down Creator
-         th(data-field="designer") Designer in charge
-         th(data-field="deadline") Deadline
+            th(data-field="user").hide-on-small-and-down #{lang.__('orderer')}
+         if(page =='all')
+            th(data-field="designer") #{lang.__('assignees')}
+         th(data-field="deadline") #{lang.__('deadline')}
          if(page == 'all')
             th(data-field="actions")
 
@@ -21,15 +31,19 @@ table
                //Created at
                td=locals.prettyDate(order.createdAt)
                //Title
-               td ##{order.id} : #{order.title}
+               td
+                  a(href="/order/"+order.id) ##{order.id} : #{order.title}
                //Creator
                if(page !=='my')
-                  td.hide-on-small-and-down=order.username
-               td(data-id=order.designer_order_id)
-                  if(order.designer_id)
-                     span=order.designer_id
-                  else
-                     i.fa.fa-times
+                  td.hide-on-small-and-down=order.creator
+               if(page =='all')
+                  td
+                     if(order.designer_order_ids)
+                        - var tab = designerList(order)
+                        each elem in tab
+                           span.badge-designer(data-id=elem.id)=elem.email
+                     else
+                        i.text-error.fa.fa-times
                td=locals.prettyDate(order.deadline)
                if(page == 'all')
                   td
@@ -37,8 +51,9 @@ table
                         i.right.fa.fa-ellipsis-v.order-action
 
                      ul(id="dropdown-"+order.id).dropdown-content
-                        li(onclick="openModal(modal_set_designer,"+order.id+")") Set to a designer
-                        li(onclick="openModal(modal_delete_order,"+order.id+")") Delete order
+                        li(onclick="openModal(modal_set_designer,"+order.id+")") #{lang.__('action_assign_designer')}
+                        li(onclick="unassignDesigner("+order.id+")") #{lang.__('action_unassign_designer')}
+                        li(onclick="openModal(modal_delete_order,"+order.id+")") #{lang.__('action_delete_order')}
       else
          tr
             td

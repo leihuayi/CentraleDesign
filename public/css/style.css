@@ -1,9 +1,18 @@
+.fill-white svg, .fill-white path {
+  fill: white; }
+
+.fill-secondary svg, .fill-secondary path {
+  fill: #5b32bc; }
+
 body {
   width: 100%;
   padding: 0;
   display: flex;
   min-height: 100vh;
   flex-direction: column; }
+
+img {
+  width: 100%; }
 
 main {
   flex: 1 0 auto; }
@@ -17,6 +26,22 @@ a:hover {
 
 table img {
   width: 50px; }
+
+.material-placeholder {
+  margin: 15px;
+  max-width: 200px;
+  min-width: 100px;
+  max-height: 200px;
+  min-height: 100px;
+  overflow: hidden; }
+  .material-placeholder:hover {
+    overflow: initial; }
+
+.children-inline > * {
+  display: inline-block; }
+
+.display-flex {
+  display: flex; }
 
 .modal {
   top: 40%;
@@ -58,8 +83,31 @@ table img {
   .index-icon h4, .index-icon h5, .index-icon h6 {
     color: #5b32bc; }
   .index-icon svg, .index-icon path {
-    max-width: 200px;
-    fill: #5b32bc; }
+    max-width: 200px; }
+
+.badge-designer {
+  font-size: 12px;
+  background-color: lightgrey;
+  padding: 5px 10px;
+  margin-right: 5px;
+  border-radius: 10px; }
+  .badge-designer.edit {
+    cursor: pointer;
+    background-color: #222;
+    color: white; }
+
+.credits .circle {
+  display: inline-block;
+  width: 70px;
+  height: 70px;
+  padding: 10px;
+  margin-right: 20px; }
+
+.range-connect {
+  height: 5px;
+  position: relative;
+  top: 20px;
+  z-index: 1; }
 
 @media screen and (max-width: 780px) {
   tr, td {
