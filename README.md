@@ -1,3 +1,7 @@
+## Presentation
+Website for ordering design works for the student association CSDesign.
+Click on the caption below for a demo video.
+[![Demo](http://img.youtube.com/vi/MP0xln9Hpjw/0.jpg)](https://www.youtube.com/watch?v=MP0xln9Hpjw "Webiste CSDesign")
 ## Global packages requirements
 
 - node v4.x (see NodeJS website)
@@ -8,14 +12,13 @@
 ## Usage
 
 Build:
-1. (sudo) npm install
-2. ./node_modules/bower/bin/bower install
+1. (sudo) ```npm install```
+2. ```./node_modules/bower/bin/bower install```
 Start the web server:
 3. (Local) To change the environment variables create a config.json file and update the variables if needed. Default: 
   * Server: localhost:8888
   * Database: localhost:3306
-4. (sudo) npm start
-```
+4. (sudo) ```npm start```
 
 ## Backend Organization
 
