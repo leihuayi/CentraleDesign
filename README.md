@@ -2,7 +2,7 @@
 Website in Node.js for ordering design works for the student association CSDesign.
 
 Click on the caption below for a demo video.
-[![Demo](http://img.youtube.com/vi/MP0xln9Hpjw/0.jpg)](https://www.youtube.com/watch?v=MP0xln9Hpjw)
+[![Demo](http://img.youtube.com/vi/omXV7W-mZOI/0.jpg)](https://www.youtube.com/watch?v=omXV7W-mZOI)
 ## Global packages requirements
 
 - node v4.x
